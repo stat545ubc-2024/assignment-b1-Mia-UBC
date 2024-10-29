@@ -13,6 +13,7 @@ Here, I will make sure I have all appropriate libraries loaded in.
 library(tidyverse)
 library(dplyr)
 library(testthat)
+library(devtools)
 
 ```
 
@@ -28,25 +29,29 @@ If you don't have the above packages installed, you can use the code chunk below
 
 Here, I will make my function. I will also document it, so that it is easy to understand what I have done and why.
 
-First, I will outline the purpose of my function. When working with datasets, I often wish to produce some summary statistics for some variable or other. Writing out the code for these summary stats, especially if I wish to see them for multiple variables, can be quite tiresome. So here, I will create a function that will produce a table of the desired summary statistics for the variables I enter.
+First, I will outline the purpose of my function. When working with datasets, I often wish to produce multiple summary statistics for some variable or other. Writing out the code for these summary stats, especially if I wish to see them for multiple variables, can be quite tiresome. So here, I will create a function that will produce a table of the desired summary statistics for the variables I enter. These summary statistics will be the: mean, range, minimum, first quartile, median, third quartile, and maximum.
 
 ```{r new function}
 
-# Desired stats to be known / format of function
-
-#  summarize(mean = mean(numeric_var),
-#            range = max(numeric_var) - min(numeric_var),
-#            min = min(numeric_var),
-#            1st_quartile = quantile(numeric_var, 0.25),
-#            median = median(numeric_var)
-#            3rd_quartile = quantile(numeric_var, 0.75)
-#            max = max(numeric_var)),
-
-#glimpse(summ_diff_area)
+#' #Summary Statistics for... 
+#' 
+#' @description
+#' Creates a table of summary statistics for a .... These summary statistics are the mean, range, minimum, first quartile, medan, third quartile, and maximum of the ...
+#' 
+#' @param data The name of the dataset being pulled from
+#' @param ... The variable(s) used to group the data
+#' @param summ_var The variable(s) for which the summary stats will be generated
+#' 
+#' @return
+#' 
+#' 
+#' @example
+#' 
+#' 
 
 total_summary <- function(data, ..., summ_var) {
   if(!is.numeric(summ_var)) {
-    stop("Sorry, this function only works for numeric variables. It seems the variable you inputted is ", class(summ_var))
+    stop("Sorry, this function only works for numeric variables. It seems the variable you inputted is of class:", class(summ_var))
   }
   data %>%
     group_by(...) %>%
@@ -59,6 +64,25 @@ total_summary <- function(data, ..., summ_var) {
             max = max(summ_var))
 }
 
+```
+
+---
+
+## Exercise 3: Include Examples
+
+Here, I will...
+
+```{r}
+
+```
+
+---
+
+## Exercise 4: Test the Function
+
+Here, I will...
+
+```{r}
 
 ```
 
