@@ -85,9 +85,9 @@ glimpse(penguins)
 
 Now I will use this data to show the use of my function through 3 examples. These are:
 
-- **Example 1:** One grouping variable, one summary variable.  
-- **Example 2:** Two grouping variables, one summary variable.  
-- **Example 3:** No grouping variables, one summary variable.
+-   **Example 1:** One grouping variable, one summary variable.\
+-   **Example 2:** Two grouping variables, one summary variable.\
+-   **Example 3:** No grouping variables, one summary variable.
 
 ```{r example 1}
 
@@ -109,9 +109,7 @@ total_summary(penguins, summ_var = body_mass_g, na.rm = TRUE)
 
 From these examples, we can see how my function works. I will include one more example below, **Example 4**, which will demonstrate what it looks like when my function is used on non-numeric data.
 
-```{r example 4}
-
-error = TRUE
+```{r example 4, error = TRUE}
 
 total_summary(penguins, species, summ_var = island, na.rm = TRUE)
 
@@ -123,7 +121,7 @@ Here, you have seen some examples of my function working, and one where it does 
 
 ## Exercise 4: Test the Function
 
-Here, I will test my function. Using *expect_()* functions and *test_that()* form the *testthat* package, I will make sure that my function works as intended. Each code chunk below will contain a test for my function. 
+Here, I will test my function. Using *expect\_()* functions and *test_that()* form the *testthat* package, I will make sure that my function works as intended. Each code chunk below will contain a test for my function.
 
 First, I will test that my function accurately displays an error when a non-numeric variable is entered as the summary variable.
 
@@ -135,7 +133,7 @@ test_that("Non-numerical variable error", {
 
 ```
 
-Second, I will test that the output of my function is of the expected class. 
+Second, I will test that the output of my function is of the expected class.
 
 ```{r expect type}
 
@@ -154,9 +152,10 @@ test_that("Output is visible", {
 })
 
 ```
+
 With these 3 tests done, my function has been tested to my satisfaction.
 
----
+------------------------------------------------------------------------
 
 ## Conclusion
 
