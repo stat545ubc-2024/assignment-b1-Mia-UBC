@@ -41,13 +41,14 @@ First, I will outline the purpose of my function. When working with datasets, I 
 #' 
 #' @param data The name of the dataset being pulled from. Named data so that it's purpose is clear.
 #' @param ... The variable(s) used to group the data. Ellipses are used because the user may or may not want to group their data, or they may wish to group by one or multiple variables.
-#' @param summ_var The variable(s) for which the summary statistics will be generated. Named summ_var to be clear that this is the variable for which a summary will be generated.
+#' @param summ_var The variable for which the summary statistics will be generated. Named summ_var to be clear that this is the variable for which a summary will be generated.
+#' @param na.rm=FALSE This allows for the inclusion or exclusion of NA values in the function.
 #' 
 #' @return A new data frame. Each column is one summary statistic. Each row is  for a combination of grouping variables.
 
 total_summary <- function(data, ..., summ_var, na.rm = FALSE) {
   if(!is.numeric(data[[deparse(substitute(summ_var))]])) {
-    stop("Sorry, this function only works for numeric variables. It seems the variable you inputted is of class:", class({{summ_var}}))
+    stop("Sorry, this function only works for numeric variables.")
   }
   data %>%
     group_by(...) %>%
@@ -77,7 +78,11 @@ glimpse(penguins)
 
 ```
 
-Now I will use this data to show the use of my function.
+Now I will use this data to show the use of my function through 3 examples. These are:
+
+- **Example 1:** One grouping variable, one summary variable.  
+- **Example 2:** Two grouping variables, one summary variable.  
+- **Example 3:** No grouping variables, one summary variable.
 
 ```{r example 1}
 
@@ -85,12 +90,35 @@ total_summary(penguins, species, summ_var = body_mass_g, na.rm = TRUE)
 
 ```
 
+```{r example 2}
+
+total_summary(penguins, species, island, summ_var = body_mass_g, na.rm = TRUE)
+
+```
+
+```{r example 3}
+
+total_summary(penguins, summ_var = body_mass_g, na.rm = TRUE)
+
+```
+
+From these examples, we can see how my function works. I will include one more example below, **Example 4**, which will demonstrate what it looks like when my function is used on non-numeric data.
+
+```{r example 4}
+
+error = TRUE
+
+total_summary(penguins, species, summ_var = island, na.rm = TRUE)
+
+```
+
+Here, you have seen some examples of my function working, and one where it does not.
 
 ------------------------------------------------------------------------
 
 ## Exercise 4: Test the Function
 
-Here, I will...
+Here, I will test my function.
 
 ```{r}
 
