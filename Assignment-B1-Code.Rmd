@@ -14,6 +14,7 @@ library(tidyverse)
 library(dplyr)
 library(testthat)
 library(devtools)
+library(palmerpenguins)
 
 ```
 
@@ -33,50 +34,59 @@ First, I will outline the purpose of my function. When working with datasets, I 
 
 ```{r new function}
 
-#' #Summary Statistics for... 
+#' #Summary Statistics for a Numeric Variable 
 #' 
 #' @description
-#' Creates a table of summary statistics for a .... These summary statistics are the mean, range, minimum, first quartile, medan, third quartile, and maximum of the ...
+#' Creates a table of summary statistics for a variable. These summary statistics are the mean, range, minimum, first quartile, medan, third quartile, and maximum of the variable.
 #' 
-#' @param data The name of the dataset being pulled from
-#' @param ... The variable(s) used to group the data
-#' @param summ_var The variable(s) for which the summary stats will be generated
+#' @param data The name of the dataset being pulled from. Named data so that it's purpose is clear.
+#' @param ... The variable(s) used to group the data. Ellipses are used because the user may or may not want to group their data, or they may wish to group by one or multiple variables.
+#' @param summ_var The variable(s) for which the summary statistics will be generated. Named summ_var to be clear that this is the variable for which a summary will be generated.
 #' 
-#' @return
-#' 
-#' 
-#' @example
-#' 
-#' 
+#' @return A new data frame. Each column is one summary statistic. Each row is  for a combination of grouping variables.
 
-total_summary <- function(data, ..., summ_var) {
-  if(!is.numeric(summ_var)) {
-    stop("Sorry, this function only works for numeric variables. It seems the variable you inputted is of class:", class(summ_var))
+total_summary <- function(data, ..., summ_var, na.rm = FALSE) {
+  if(!is.numeric(data[[deparse(substitute(summ_var))]])) {
+    stop("Sorry, this function only works for numeric variables. It seems the variable you inputted is of class:", class({{summ_var}}))
   }
   data %>%
     group_by(...) %>%
-    summarize(mean = mean(summ_var),
-            range = max(summ_var) - min(summ_var),
-            min = min(summ_var),
-            first_quartile = quantile(summ_var, 0.25),
-            median = median(summ_var),
-            third_quartile = quantile(summ_var, 0.75),
-            max = max(summ_var))
+    summarize(mean = mean({{summ_var}}, na.rm = na.rm),
+            range = max({{summ_var}}, na.rm = na.rm) - min({{summ_var}}, na.rm = na.rm),
+            min = min({{summ_var}}, na.rm = na.rm),
+            first_quartile = quantile({{summ_var}}, 0.25, na.rm = na.rm),
+            median = median({{summ_var}}, na.rm = na.rm),
+            third_quartile = quantile({{summ_var}}, 0.75, na.rm = na.rm),
+            max = max({{summ_var}}, na.rm = na.rm))
 }
 
 ```
 
----
+------------------------------------------------------------------------
 
 ## Exercise 3: Include Examples
 
-Here, I will...
+Here, I will show some example of my function, *total_summary*, functioning. I will use the data from the *penguins* dataset that I loaded in the **Setup** section, though any dataset should work.
 
-```{r}
+First, let's take a look at the *penguins* dataset.
+
+```{r penguins}
+
+print(penguins)
+glimpse(penguins)
 
 ```
 
----
+Now I will use this data to show the use of my function.
+
+```{r example 1}
+
+total_summary(penguins, species, summ_var = body_mass_g, na.rm = TRUE)
+
+```
+
+
+------------------------------------------------------------------------
 
 ## Exercise 4: Test the Function
 
@@ -85,4 +95,3 @@ Here, I will...
 ```{r}
 
 ```
-
