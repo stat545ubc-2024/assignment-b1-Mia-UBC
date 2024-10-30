@@ -1,3 +1,8 @@
+---
+title: "Assignment B1"
+output: github_document
+---
+
 # Welcome to Mia's Assignment B1!
 
 Welcome to the code for my assignment! Throughout the following code, I will create, document, demonstrate, and test a function. Follow along to see the process.
@@ -118,8 +123,41 @@ Here, you have seen some examples of my function working, and one where it does 
 
 ## Exercise 4: Test the Function
 
-Here, I will test my function.
+Here, I will test my function. Using *expect_()* functions and *test_that()* form the *testthat* package, I will make sure that my function works as intended. Each code chunk below will contain a test for my function. 
 
-```{r}
+First, I will test that my function accurately displays an error when a non-numeric variable is entered as the summary variable.
+
+```{r expect error}
+
+test_that("Non-numerical variable error", {
+  expect_error(total_summary(penguins, species, summ_var = island, na.rm = TRUE))
+})
 
 ```
+
+Second, I will test that the output of my function is of the expected class. 
+
+```{r expect type}
+
+test_that("Class of return from function", {
+  expect_type(total_summary(penguins, species, summ_var = body_mass_g, na.rm = TRUE), "list")
+})
+
+```
+
+Lastly, I will test that my function prints its result when run.
+
+```{r expect visible}
+
+test_that("Output is visible", {
+  expect_visible(total_summary(penguins, species, summ_var = body_mass_g, na.rm = TRUE))
+})
+
+```
+With these 3 tests done, my function has been tested to my satisfaction.
+
+---
+
+## Conclusion
+
+In this Assignment, I have created, documented, shown examples for, and tested a new function of my own devising. This function, *total_summary*, can be used to create a table of the mean, range, minimum, first quartile, median, third quartile, and maximum values of a variable. The user can choose whether they would like to group this variable by some grouping variable when using the function.
